@@ -21,14 +21,25 @@ Implementation Notes
 """
 
 # imports
-from __future__ import annotations
+try:
+    from __future__ import annotations
+except ImportError:
+    pass
 import os
 import re
-from typing import Optional, TYPE_CHECKING
+
+try:
+    from typing import TYPE_CHECKING, Optional
+except ImportError:
+    pass
+
 from .constants import boards, chips
 
-if TYPE_CHECKING:
-    from . import Detector
+try:
+    if TYPE_CHECKING:
+        from . import Detector
+except NameError:
+    pass
 
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PlatformDetect.git"
@@ -218,6 +229,7 @@ class Board:
     # pylint: disable=no-self-use
     def _beaglebone_id(self) -> Optional[str]:
         """Try to detect id of a Beaglebone."""
+
         board_value = self.detector.get_device_compatible()
         # Older Builds
         if "freedom-u74-arty" in board_value:
@@ -231,11 +243,7 @@ class Board:
             with open("/sys/bus/nvmem/devices/0-00500/nvmem", "rb") as eeprom:
                 eeprom_bytes = eeprom.read(16)
         except FileNotFoundError:
-            try:
-                with open("/sys/bus/nvmem/devices/0-00501/nvmem", "rb") as eeprom:
-                    eeprom_bytes = eeprom.read(16)
-            except FileNotFoundError:
-                return None
+            return None
 
         if eeprom_bytes[:4] != b"\xaaU3\xee":
             return None
@@ -252,6 +260,7 @@ class Board:
                     return model
 
         board_value = self.detector.get_armbian_release_field("BOARD")
+
         return None
 
     # pylint: enable=no-self-use

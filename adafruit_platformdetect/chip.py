@@ -20,14 +20,27 @@ Implementation Notes
 """
 
 # imports
-from __future__ import annotations
+try:
+    from __future__ import annotations
+except ImportError:
+    pass
 import os
 import sys
-from typing import Optional, TYPE_CHECKING
+
+# from tokenize import Name
+
+try:
+    from typing import TYPE_CHECKING, Optional
+except ImportError:
+    pass
+
 from .constants import chips
 
-if TYPE_CHECKING:
-    from . import Detector
+try:
+    if TYPE_CHECKING:
+        from . import Detector
+except NameError:
+    pass
 
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PlatformDetect.git"
