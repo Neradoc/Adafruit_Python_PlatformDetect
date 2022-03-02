@@ -20,27 +20,18 @@ Implementation Notes
 """
 
 # imports
-try:
-    from __future__ import annotations
-except ImportError:
-    pass
 import os
 import sys
 
 # from tokenize import Name
 
 try:
-    from typing import TYPE_CHECKING, Optional
+    from typing import Optional
+    from .types import DetectorProtocol
 except ImportError:
     pass
 
 from .constants import chips
-
-try:
-    if TYPE_CHECKING:
-        from . import Detector
-except NameError:
-    pass
 
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PlatformDetect.git"
@@ -49,7 +40,7 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PlatformDetect.gi
 class Chip:
     """Attempt detection of current chip / CPU."""
 
-    def __init__(self, detector: Detector) -> None:
+    def __init__(self, detector: DetectorProtocol) -> None:
         self.detector = detector
         self._chip_id = None
 

@@ -11,14 +11,19 @@ try:
     from typing import Optional
 except ImportError:
     pass
+from .types import DetectorProtocol
 from .board import Board
 from .chip import Chip
+
+
+__version__ = "0.0.0-auto.0"
+__repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PlatformDetect.git"
 
 
 # Various methods here may retain state in future, so tell pylint not to worry
 # that they don't use self right now:
 # pylint: disable=no-self-use
-class Detector:
+class Detector(DetectorProtocol):
     """Wrap various platform detection functions."""
 
     def __init__(self) -> None:
